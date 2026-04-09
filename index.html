@@ -453,7 +453,7 @@
         <span data-lang-inline="en">Email</span>
       </div>
 
-      <a href="#" class="link-card" onclick="mailTo(event,'company')">
+      <div class="link-card">
         <div class="link-icon" style="background:#e6f6fa;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="#028DAE"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </div>
@@ -464,9 +464,9 @@
           </div>
           <div class="link-main"><canvas id="email-company"></canvas></div>
         </div>
-      </a>
+      </div>
 
-      <a href="#" class="link-card" onclick="mailTo(event,'colorado')">
+      <div class="link-card">
         <div class="link-icon" style="background:#e6f6fa;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="#028DAE"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </div>
@@ -477,9 +477,9 @@
           </div>
           <div class="link-main"><canvas id="email-colorado"></canvas></div>
         </div>
-      </a>
+      </div>
 
-      <a href="#" class="link-card" onclick="mailTo(event,'utokyo')">
+      <div class="link-card">
         <div class="link-icon" style="background:#e6f6fa;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="#028DAE"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </div>
@@ -490,7 +490,7 @@
           </div>
           <div class="link-main"><canvas id="email-utokyo"></canvas></div>
         </div>
-      </a>
+      </div>
 
     </div>
 
@@ -715,12 +715,6 @@
         ctx.fillStyle = '#222';
         ctx.fillText(email, 2, fontSize + 2);
       });
-    }
-
-    function mailTo(e, key) {
-      e.preventDefault();
-      const p = emailData[key];
-      window.location.href = 'mailto:' + p[0] + '\u0040' + p[1];
     }
 
     function revealSections() {

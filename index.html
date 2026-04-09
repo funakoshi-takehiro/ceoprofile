@@ -453,7 +453,7 @@
         <span data-lang-inline="en">Email</span>
       </div>
 
-      <a href="mailto:funakoshi@pairmind.co.jp" class="link-card">
+      <a href="#" class="link-card" onclick="mailTo(event,'company')">
         <div class="link-icon" style="background:#e6f6fa;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="#028DAE"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </div>
@@ -462,11 +462,11 @@
             <span data-lang-inline="ja">会社</span>
             <span data-lang-inline="en">pAIr Mind</span>
           </div>
-          <div class="link-main">funakoshi@pairmind.co.jp</div>
+          <div class="link-main"><canvas id="email-company"></canvas></div>
         </div>
       </a>
 
-      <a href="mailto:Takehiro.Funakoshi@colorado.edu" class="link-card">
+      <a href="#" class="link-card" onclick="mailTo(event,'colorado')">
         <div class="link-icon" style="background:#e6f6fa;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="#028DAE"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </div>
@@ -475,11 +475,11 @@
             <span data-lang-inline="ja">コロラド大学</span>
             <span data-lang-inline="en">Univ. of Colorado</span>
           </div>
-          <div class="link-main">Takehiro.Funakoshi@colorado.edu</div>
+          <div class="link-main"><canvas id="email-colorado"></canvas></div>
         </div>
       </a>
 
-      <a href="mailto:takehiro.funakoshi@weblab.t.u-tokyo.ac.jp" class="link-card">
+      <a href="#" class="link-card" onclick="mailTo(event,'utokyo')">
         <div class="link-icon" style="background:#e6f6fa;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="#028DAE"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </div>
@@ -488,7 +488,7 @@
             <span data-lang-inline="ja">東京大学</span>
             <span data-lang-inline="en">UTokyo</span>
           </div>
-          <div class="link-main">takehiro.funakoshi@weblab.t.u-tokyo.ac.jp</div>
+          <div class="link-main"><canvas id="email-utokyo"></canvas></div>
         </div>
       </a>
 
@@ -685,11 +685,55 @@
       btn.classList.add('active');
     }
 
+    // メールアドレスをCanvas画像として描画（ソースコードに平文で残さない）
+    const emailData = {
+      company:  ['funakoshi',          'pairmind.co.jp'],
+      colorado: ['Takehiro.Funakoshi', 'colorado.edu'],
+      utokyo:   ['takehiro.funakoshi', 'weblab.t.u-tokyo.ac.jp']
+    };
+
+    function renderEmails() {
+      const dpr = window.devicePixelRatio || 1;
+      Object.keys(emailData).forEach(function(key) {
+        const parts = emailData[key];
+        const email = parts[0] + '\u0040' + parts[1];
+        const canvas = document.getElementById('email-' + key);
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        const fontSize = 14;
+        const font = fontSize + 'px "Zen Kaku Gothic New", Inter, sans-serif';
+        ctx.font = font;
+        const cssW = Math.ceil(ctx.measureText(email).width) + 4;
+        const cssH = fontSize + 8;
+        canvas.width  = cssW * dpr;
+        canvas.height = cssH * dpr;
+        canvas.style.width  = cssW + 'px';
+        canvas.style.height = cssH + 'px';
+        canvas.style.display = 'block';
+        ctx.scale(dpr, dpr);
+        ctx.font = font;
+        ctx.fillStyle = '#222';
+        ctx.fillText(email, 2, fontSize + 2);
+      });
+    }
+
+    function mailTo(e, key) {
+      e.preventDefault();
+      const p = emailData[key];
+      window.location.href = 'mailto:' + p[0] + '\u0040' + p[1];
+    }
+
     function revealSections() {
       document.getElementById('verify-gate-section').style.display = 'none';
       document.querySelectorAll('.locked-section').forEach(function(el) {
         el.classList.add('revealed');
       });
+      // 認証後にメールを描画
+      if (document.fonts) {
+        document.fonts.ready.then(renderEmails);
+      } else {
+        renderEmails();
+      }
     }
 
     function onTurnstileSuccess(token) {
@@ -699,7 +743,9 @@
 
     // セッション中にすでに認証済みならゲートをスキップ
     if (sessionStorage.getItem('human_verified')) {
-      document.addEventListener('DOMContentLoaded', revealSections);
+      document.addEventListener('DOMContentLoaded', function() {
+        revealSections();
+      });
     }
   </script>
 </body>

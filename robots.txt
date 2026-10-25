@@ -1,0 +1,5 @@
+# The page itself is kept out of search results by its noindex meta tag.
+# Don't disallow "/" here: crawlers must be able to fetch the page to see noindex.
+User-agent: *
+Disallow: /profile.png
+Disallow: /pAIr_Mind_logo.png

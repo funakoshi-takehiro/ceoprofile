@@ -155,6 +155,20 @@
       line-height: 1.45;
     }
 
+    .nowrap { white-space: nowrap; }
+    .affil-sub-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .affil-sub-link .affil-sub-org { flex: 1; }
+    .affil-sub-link:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.11); }
+    .affil-sub-link:active { transform: translateY(0); }
+
     /* ── Section ── */
     .section { margin-bottom: 16px; }
     .section-label {
@@ -489,6 +503,20 @@
         <span data-lang-inline="en">Other Affiliations</span>
       </div>
       <div class="affil-sub-list">
+        <a href="https://pyhiroba.weblab.t.u-tokyo.ac.jp/" target="_blank" rel="noopener" class="affil-sub-card affil-sub-link">
+          <div class="affil-sub-org">
+            <span data-lang-inline="ja">教育現場向け先端学習環境 PyHiroba <span class="nowrap">開発・運営</span></span>
+            <span data-lang-inline="en">Development &amp; Operations — "PyHiroba", Advanced Learning Environment for Schools</span>
+          </div>
+          <div class="link-chevron">›</div>
+        </a>
+        <a href="https://www.gakken.jp/kyouikusouken/kenkyu-kiyo/" target="_blank" rel="noopener" class="affil-sub-card affil-sub-link">
+          <div class="affil-sub-org">
+            <span data-lang-inline="ja">学研 高校生・高専生研究紀要 編集委員</span>
+            <span data-lang-inline="en">Editorial Board Member — Gakken Student Research Bulletin</span>
+          </div>
+          <div class="link-chevron">›</div>
+        </a>
         <div class="affil-sub-card">
           <div class="affil-sub-org">
             <span data-lang-inline="ja">兵庫県 若者支援 政策提言メンバー</span>
